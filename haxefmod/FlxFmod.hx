@@ -1,13 +1,14 @@
 package haxefmod;
 
+import flixel.FlxG;
 import flixel.FlxState;
+
 import haxefmod.FmodManager;
 import haxefmod.FmodEvents.FmodCallback;
 import haxefmod.FmodEvents.FmodEvent;
 import haxefmod.FmodEvents.FmodEventListener;
 import haxefmod.FmodManagerPrivate;
-import flixel.FlxG;
-import flixel.FlxState;
+
 
 class FlxFmod {
 	private static var instance:FlxFmod;
@@ -27,7 +28,7 @@ class FlxFmod {
         @see https://tanneris.me/FMOD-AHDSR
     **/
     public static function TransitionToStateAndStopMusic(state:FlxState) {
-        GetInstance().TransitionToStateAndStopMusic(state);
+        GetInstance().handleTransitionToStateAndStopMusic(state);
     }
 
     /**
@@ -37,12 +38,12 @@ class FlxFmod {
         @param state the state to load
     **/
     public static function TransitionToState(state:FlxState) {
-        GetInstance().TransitionToState(state);
+        GetInstance().handleTransitionToState(state);
     }
 
     private function new() {}
 
-    private function TransitionToStateAndStopMusic(state:FlxState) {
+    private function handleTransitionToStateAndStopMusic(state:FlxState) {
         if (!FmodManager.IsSongPlaying()) {
             FlxG.switchState(state);
             return;
@@ -57,7 +58,12 @@ class FlxFmod {
         FmodManager.StopSong();
     }
 
-    private function TransitionToState(state:FlxState) {
+    private function handleTransitionToState(state:FlxState) {
         FlxG.switchState(state);
+    }
+
+    // Here to satisfy the interface
+    public function ReceiveEvent(e:FmodEvent):Void {
+
     }
 }
