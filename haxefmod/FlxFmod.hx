@@ -59,23 +59,23 @@ class FlxFmod {
         trace('handling new volume level: ${v}');
     }
 
-    private function handleTransitionToStateAndStopMusic(state:FlxState) {
+    private function handleTransitionToStateAndStopMusic(nextState:flixel.util.typeLimit.NextState) {
         if (!FmodManager.IsSongPlaying()) {
-            FlxG.switchState(state.new);
+            FlxG.switchState(nextState);
             return;
         }
 
         FmodManager.CheckIfUpdateIsBeingCalled();
 
         FmodManager.RegisterCallbacksForSound("SongEventInstance", ()-> {
-            FlxG.switchState(state.new);
+            FlxG.switchState(nextState);
         }, FmodCallback.STOPPED);
 
         FmodManager.StopSong();
     }
 
-    private function handleTransitionToState(state:FlxState) {
-        FlxG.switchState(state.new);
+    private function handleTransitionToState(nextState:flixel.util.typeLimit.NextState) {
+        FlxG.switchState(nextState);
     }
 
     // Here to satisfy the interface
