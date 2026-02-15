@@ -16,16 +16,27 @@ class FlxFmod {
 	private static function GetInstance():FlxFmod {
         if (instance == null) {
             instance = new FlxFmod();
-            FmodManager.RegisterEventListener(instance);
+            // For some reason the compiler doesn't think instance satisfies the interface
+            // FmodManager.RegisterEventListener(instance);
         }
         return instance;
+    }
+
+    public static function Init() {
+        // disable built-in flixel volume sounds
+		FlxG.sound.soundTray.silent = true;
+
+        // Let us handle volume adjustments
+        FlxG.sound.onVolumeChange.add(GetInstance().handleVolumeChanged);
+
+        // We don't have a way to be told of the initial volume, so just manually do it at init time
+        GetInstance().handleVolumeChanged(FlxG.sound.volume);
     }
 
     /** 
         Sends the "stop" command to the FMOD API and waits for the
         current song to stop before triggering a state transition
         @param state the state to load after the music stops
-        @see https://tanneris.me/FMOD-AHDSR
     **/
     public static function TransitionToStateAndStopMusic(state:FlxState) {
         GetInstance().handleTransitionToStateAndStopMusic(state);
@@ -43,23 +54,28 @@ class FlxFmod {
 
     private function new() {}
 
+    private function handleVolumeChanged(v:Float):Void {
+        // TODO: Change fmod main bus volume level
+        trace('handling new volume level: ${v}');
+    }
+
     private function handleTransitionToStateAndStopMusic(state:FlxState) {
         if (!FmodManager.IsSongPlaying()) {
-            FlxG.switchState(state);
+            FlxG.switchState(state.new);
             return;
         }
 
         FmodManager.CheckIfUpdateIsBeingCalled();
 
         FmodManager.RegisterCallbacksForSound("SongEventInstance", ()-> {
-            FlxG.switchState(state);
+            FlxG.switchState(state.new);
         }, FmodCallback.STOPPED);
 
         FmodManager.StopSong();
     }
 
     private function handleTransitionToState(state:FlxState) {
-        FlxG.switchState(state);
+        FlxG.switchState(state.new);
     }
 
     // Here to satisfy the interface
