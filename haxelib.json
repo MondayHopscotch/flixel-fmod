@@ -8,7 +8,7 @@
 	"releasenote" : "Alpha release",
 	"contributors" : ["MondayHopscotch"],
     "dependencies" : {
-		"haxe-fmod": "",
+		"haxefmod": "",
 		"flixel": ""
 	}
 }
