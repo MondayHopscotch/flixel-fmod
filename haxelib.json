@@ -1,0 +1,14 @@
+{
+	"name" : "flixel-fmod",
+	"url" : "https://github.com/MondayHopscotch/flixel-fmod",
+	"license" : "MIT",
+	"tags": ["flixel"],
+    "description" : "Simple haxe-fmod flixel tie-in",
+    "version" : "0.1.0",
+	"releasenote" : "Alpha release",
+	"contributors" : ["MondayHopscotch"],
+    "dependencies" : {
+		"haxe-fmod": "",
+		"flixel": "",
+	}
+}
