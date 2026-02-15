@@ -1,6 +1,7 @@
 package haxefmod;
 
 import flixel.FlxState;
+import haxefmod.FmodManager;
 import haxefmod.FmodEvents.FmodCallback;
 import haxefmod.FmodEvents.FmodEvent;
 import haxefmod.FmodEvents.FmodEventListener;
@@ -8,12 +9,12 @@ import haxefmod.FmodManagerPrivate;
 import flixel.FlxG;
 import flixel.FlxState;
 
-class FlxHaxeFmod {
-	private static var instance:FlxHaxeFmod;
+class FlxFmod {
+	private static var instance:FlxFmod;
 
-	private static function GetInstance():FlxHaxeFmod {
+	private static function GetInstance():FlxFmod {
         if (instance == null) {
-            instance = new FlxHaxeFmod();
+            instance = new FlxFmod();
             FmodManager.RegisterEventListener(instance);
         }
         return instance;
