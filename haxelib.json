@@ -9,6 +9,6 @@
 	"contributors" : ["MondayHopscotch"],
     "dependencies" : {
 		"haxe-fmod": "",
-		"flixel": "",
+		"flixel": ""
 	}
 }
