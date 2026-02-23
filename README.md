@@ -4,7 +4,8 @@ A simple flixel-tie in library to make using the [haxe-fmod](https://github.com/
 
 # Features
 
-- Flixel volume control
+- Flixel volume control tie-ins
+- State switching with music fade-out
 
 # Usage/Setup
 
