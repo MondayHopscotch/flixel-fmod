@@ -1,13 +1,12 @@
 package haxefmod;
 
+
 import flixel.FlxG;
-import flixel.FlxState;
+import flixel.util.typeLimit.NextState;
 
 import haxefmod.FmodManager;
-import haxefmod.FmodEvents.FmodCallback;
 import haxefmod.FmodEvents.FmodEvent;
-import haxefmod.FmodEvents.FmodEventListener;
-import haxefmod.FmodManagerPrivate;
+import haxefmod.FmodEvents.FmodCallback;
 
 
 class FlxFmod {
@@ -38,8 +37,8 @@ class FlxFmod {
         current song to stop before triggering a state transition
         @param state the state to load after the music stops
     **/
-    public static function TransitionToStateAndStopMusic(state:FlxState) {
-        GetInstance().handleTransitionToStateAndStopMusic(state);
+    public static function stopMusicAndSwitchState(state:NextState) {
+        GetInstance().handleStopMusicAndSwitchState(state);
     }
 
     /**
@@ -48,8 +47,8 @@ class FlxFmod {
         Any loaded music will continue to play even after loading the new state
         @param state the state to load
     **/
-    public static function TransitionToState(state:FlxState) {
-        GetInstance().handleTransitionToState(state);
+    public static function switchState(state:NextState) {
+        GetInstance().handleSwitchState(state);
     }
 
     private function new() {}
@@ -58,7 +57,7 @@ class FlxFmod {
         FmodManager.SetBusVolume("bus:/", v);
     }
 
-    private function handleTransitionToStateAndStopMusic(nextState:flixel.util.typeLimit.NextState) {
+    private function handleStopMusicAndSwitchState(nextState:NextState) {
         if (!FmodManager.IsSongPlaying()) {
             FlxG.switchState(nextState);
             return;
@@ -73,12 +72,11 @@ class FlxFmod {
         FmodManager.StopSong();
     }
 
-    private function handleTransitionToState(nextState:flixel.util.typeLimit.NextState) {
+    private function handleSwitchState(nextState:NextState) {
         FlxG.switchState(nextState);
     }
 
-    // Here to satisfy the interface
     public function ReceiveEvent(e:FmodEvent):Void {
-
+        // Here to satisfy the interface
     }
 }
