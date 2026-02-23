@@ -75,8 +75,4 @@ class FlxFmod {
     private function handleSwitchState(nextState:NextState) {
         FlxG.switchState(nextState);
     }
-
-    public function ReceiveEvent(e:FmodEvent):Void {
-        // Here to satisfy the interface
-    }
 }
