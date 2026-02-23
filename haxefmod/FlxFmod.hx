@@ -55,8 +55,7 @@ class FlxFmod {
     private function new() {}
 
     private function handleVolumeChanged(v:Float):Void {
-        // TODO: Change fmod main bus volume level
-        trace('handling new volume level: ${v}');
+        FmodManager.SetBusVolume("bus:/", v);
     }
 
     private function handleTransitionToStateAndStopMusic(nextState:flixel.util.typeLimit.NextState) {
