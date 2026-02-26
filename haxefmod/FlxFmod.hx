@@ -29,7 +29,7 @@ class FlxFmod {
         FlxG.sound.onVolumeChange.add(GetInstance().handleVolumeChanged);
 
         // We don't have a way to be told of the initial volume, so just manually do it at init time
-        GetInstance().handleVolumeChanged(FlxG.sound.volume);
+        GetInstance().handleVolumeChanged(FlxG.sound.muted ? 0 : FlxG.sound.volume);
     }
 
     /** 
